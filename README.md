@@ -10,6 +10,7 @@ Regressionn on Customer dataset with number of purchases from catalog, stores et
 
 ## General info
 A dataset containing the details of loyal clients, and their purchase behaviour. The clients purchased items such as fish, meat, and wine from a company. Regression and Correlation analysis is performed on the dataset to predict the best ways to campaign to their loyal customers be it through sending catalogs, information on what is in the store, or what is offered on the website.
+
 <b> A Exploring and Understanding basics data </b>
 
 1. Know the data distribution across the education category.
