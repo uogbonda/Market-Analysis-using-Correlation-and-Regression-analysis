@@ -1,0 +1,142 @@
+Created a database first 
+
+Next,
+
+SELECT * FROM test.marketing_campaign_18th_nov;
+
+Get the number of observations:
+
+SELECT count(*) FROM test.marketing_campaign_18th_nov;
+
+
+Get the number of customers with their educational qualification:
+
+SELECT count(*), Education FROM test.marketing_campaign_18th_nov 
+group by Education;
+
+'203', '2n Cycle'
+'54', 'Basic'
+'1127', 'Graduation'
+'370', 'Master'
+'486', 'PhD'
+
+
+EDA on income, number of kids at home, marital status and education
+
+SELECT count(*), Marital_Status, Education, Kidhome, Income 
+FROM test.marketing_campaign_18th_nov group by Marital_Status;
+
+
+
+Calculate the average income based on the education, marital_status and kids at home:
+
+SELECT count(*), Marital_Status, Education, Kidhome, Income, Income/count(*) as Average_income_per_counts 
+FROM test.marketing_campaign_18th_nov group by Marital_Status;
+
+
+# count(*)	Marital_Status	Education	Kidhome	Income	Average_income_per_counts
+2	Absurd	Graduation	0	79244	39622.0000
+3	Alone	Master	1	61331	20443.6667
+232	Divorced	Graduation	0	55635	239.8060
+864	Married	PhD	1	58293	67.4688
+480	Single	Graduation	0	58138	121.1208
+580	Together	Graduation	0	71613	123.4707
+77	Widow	Graduation	0	42429	551.0260
+2	YOLO	PhD	0	48432	24216.0000
+
+
+Get the customers who accepted campaigns at different stages of campaign level:
+
+SELECT count(*), AcceptedCmp1, AcceptedCmp2, AcceptedCmp3, AcceptedCmp4, AcceptedCmp5, Response 
+FROM test.marketing_campaign_18th_nov group by Response;
+
+# count(*)	AcceptedCmp1	AcceptedCmp2	AcceptedCmp3	AcceptedCmp4	AcceptedCmp5	Response
+1906	0	0	0	0	0	0
+334	0	0	0	0	0	1
+
+Response 1: 334 customers accepted the offer in the last campaign.
+Response 0: 1906 did not accept the offer in the last campaign.
+
+
+Get the average income and group by education:
+
+SELECT avg(Income), Education,kidhome,Teenhome 
+FROM test.marketing_campaign_18th_nov group by Education;
+
+# avg(Income)	Education	kidhome	Teenhome
+46929.2512	2n Cycle	1	0
+20306.2593	Basic	        0	0
+52205.8004	Graduation	0	0
+52202.4324	Master	        0	1
+55567.6872	PhD	        1	0
+
+Created new column for Total expense:
+
+ALTER TABLE test.marketing_campaign_18th_nov 
+ADD COLUMN Total_Expense INT(11) NULL AFTER Income;
+
+
+Calculated total expenses and name it as a column. Calculated Income - Total expense as a column (Disposable income)
+
+Select *, Income - (MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines) as Disposable_income, 
+MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines as Total_expenses
+FROM test.marketing_campaign_18th_nov;
+
+
+Average income,average_expense, average disposable income
+
+Select  avg(income) as Average_income, avg(Income) - avg(MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines) as Avg_Disposable_income, 
+avg(MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines) as Avg_Total_expenses
+FROM test.marketing_campaign_18th_nov;
+
+Average_income	Avg_Disposable_income	Avg_Total_expenses
+51687.4594	51081.6612	        605.7982
+
+ Getting cutstomers that earn on average or above the average income
+
+Select *, Income - (MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines) as Disposable_income, 
+MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines as Total_expenses
+FROM test.marketing_campaign_18th_nov 
+where Income >= 51687.4594;
+
+Getting below average
+
+Select *, Income - (MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines) as Disposable_income, 
+MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines as Total_expenses
+FROM test.marketing_campaign_18th_nov 
+where Income < 51687.4594;
+
+
+DATE RANGE
+
+SELECT * FROM test.marketing_campaign_18th_nov where Dt_Customer between '2012-01-01' and  '2012-12-31';
+
+SELECT * , Income - (MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines) as Disposable_income, 
+MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines as Total_expenses 
+FROM test.marketing_campaign_18th_nov 
+where Dt_Customer between '2012-01-01' and  '2012-12-31';
+
+
+SELECT * , Income - (MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines) as Disposable_income, 
+MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines as Total_expenses 
+FROM test.marketing_campaign_18th_nov 
+where Dt_Customer between '2013-01-01' and  '2013-12-31' order by Recency DESC;
+
+
+Since the mininum recency is 0 and maximum is 99 days.
+ Then we group the customers according to recency...ie 5 groups
+
+Recency Group 1 (0-20)
+
+SELECT * , Income - (MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines) as Disposable_income, 
+MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines as Total_expenses 
+FROM test.marketing_campaign_18th_nov 
+where Recency between '0' and  '20' group by Recency ASC;
+
+Recency Group 2 (21-40)
+
+SELECT * , Income - (MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines) as Disposable_income, 
+MntFishProducts + MntFruits + MntGoldProds + MntMeatProducts + MntSweetProducts + MntWines as Total_expenses 
+FROM test.marketing_campaign_18th_nov 
+where Recency between '21' and  '40' group by Recency ASC;
+
