@@ -40,7 +40,8 @@ The method implemented was carried out by:
 The findings show the following:
 *  Master: These clients have positive correlation with purchasing from the store and Catalogs. for each dollar of sales, there is a ROI of 129 US dollar from Catalog,    75 US dollar ROI from store purchases.
 * Purchases from catalog gives high ROI across the 5 Account type(ie Graduatiion,PhD,Basic,2nCyle and Masters)
-* 89% of Users come from the direct source/medium and 10% from google/cpc.
-* 37.4% less revenue generated compared to last month revenue of $221,854.37.
-* New Customer LTV is $2.71 compared to last month LTV ($3.40).
-* 51,273 Users which is 21.46% less than the previous report.
+* Clients with Basic education do not have a particular campaign that appeals to them. Without using any campaigns for Basic clients, we get 0.03 unit sales.
+* Accepted campaigns are 5,1,4 and last campaign(Response) for Graduation.
+* Only Campaign 5 and Response for PhD.
+* 2n Cycle: These are clients in their 2nd level in university. Only campaign 5,1 and 4 is best.
+* Only campaign 5 and 1 works for Master.
