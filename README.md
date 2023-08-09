@@ -17,7 +17,7 @@ A dataset containing the details of loyal clients, and their purchase behaviour.
 2. What are the different sales associated with their purchases (Using Categorical Mean)
 
 <b> B Statistical Analysis - Answering the Questions</b>
-1. The impact of the number of purcahses on Sales (Using Correlation and Regression).
+1. The impact of the number of purchases on Sales (Using Correlation and Regression).
 
 2. How web, store and catalog purchases can affect sales (Broken down Question 1 and Question 2 based on Account Type(Education))
 
